@@ -8,11 +8,15 @@ for now is focused on SFTP servers.
 - It expects an ENV variable named FILE_TRANSFER_MIXIN_CONFIG_PATH to be set.
 - It expects a yml configuration file in FILE_TRANSFER_MIXIN_CONFIG_PATH that looks like the following:
 
-sftp:
-  some_key:
-    server: sftp.matrix.com
-    username: neo
-    password: the_one
+:development: 
+  :sftp: 
+    :some_key: 
+      :server: 127.0.0.1
+      :username: user
+      :password: pass
+:test: {}
+
+:production: {}
 
 Then in a class, you would deal with it thusly:
 
