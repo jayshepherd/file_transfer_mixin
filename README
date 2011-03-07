@@ -2,8 +2,12 @@
 FileTransferMixin is a module that you can include in a library.  It will support various mechanisms long-term, but
 for now is focused on SFTP servers.
 
+It provides the following methods for now:
+
 - sftp_send(key, remote_location, local_file_path)
 - sftp_fetch(key, remote_path, local_path)
+- sftp_move(key, original_remote_path, new_remote_path)
+- sftp_block(key)
 
 - It expects an ENV variable named FILE_TRANSFER_MIXIN_CONFIG_PATH to be set.
 - It expects a yml configuration file in FILE_TRANSFER_MIXIN_CONFIG_PATH that looks like the following:
@@ -31,6 +35,18 @@ class SomeClass
   # Some method that fetches a file
   def fetch_method
     sftp_fetch(:some_key, remote_path, local_path)
+  end
+
+  # Some method that moves a file
+  def move_method
+    sftp_move(:some_key, original_remote_path, new_remote_path)
+  end
+
+  # Some method that otherwise uses Net::SFTP commands but still uses our config block
+  def sftp_detailed_method
+    sftp_block(:some_key) do |ftp|
+      ftp.rename!('foo', 'bar')
+    end
   end
 end
 
