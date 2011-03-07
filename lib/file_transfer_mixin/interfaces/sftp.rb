@@ -37,7 +37,7 @@ module FileTransferMixin
       end
 
       def perform_network_operations?
-        FileTransferMixin.env != 'test'
+        FileTransferMixin.env.to_s != 'test'
       end
     end
   end
