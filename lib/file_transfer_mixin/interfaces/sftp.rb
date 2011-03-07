@@ -2,7 +2,7 @@ module FileTransferMixin
   module InstanceMethods
     extend Forwardable
 
-    def_delegators :file_transfer_mixin_sftp_instance, :sftp_send, :sftp_fetch
+    def_delegators :file_transfer_mixin_sftp_instance, :sftp_send, :sftp_fetch, :sftp_block
 
     private
     def file_transfer_mixin_sftp_instance
@@ -17,8 +17,10 @@ module FileTransferMixin
       end
 
       def sftp_block(key, &block)
-        Net::SFTP.start(configuration[key][:server], configuration[key][:username], :password => configuration[key][:password]) do |sftp|
-          yield(sftp)
+        if perform_network_operations?
+          Net::SFTP.start(configuration[key][:server], configuration[key][:username], :password => configuration[key][:password]) do |sftp|
+            yield(sftp)
+          end
         end
       end
 
@@ -32,6 +34,10 @@ module FileTransferMixin
         sftp_block(key) do |sftp|
           sftp.download!(remote_path, local_path)
         end
+      end
+
+      def perform_network_operations?
+        FileTransferMixin.env != 'test'
       end
     end
   end
