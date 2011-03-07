@@ -2,7 +2,7 @@ module FileTransferMixin
   module InstanceMethods
     extend Forwardable
 
-    def_delegators :file_transfer_mixin_sftp_instance, :sftp_send, :sftp_fetch, :sftp_block
+    def_delegators :file_transfer_mixin_sftp_instance, :sftp_send, :sftp_fetch, :sftp_move, :sftp_block
 
     private
     def file_transfer_mixin_sftp_instance
@@ -33,6 +33,12 @@ module FileTransferMixin
       def sftp_fetch(key, remote_path, local_path)
         sftp_block(key) do |sftp|
           sftp.download!(remote_path, local_path)
+        end
+      end
+
+      def sftp_move(key, original_remote_path, new_remote_path)
+        sftp_block(key) do |sftp|
+          sftp.rename!(original_remote_path, new_remote_path)
         end
       end
 
