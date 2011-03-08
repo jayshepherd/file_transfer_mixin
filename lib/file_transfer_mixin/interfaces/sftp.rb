@@ -25,20 +25,20 @@ module FileTransferMixin
       end
 
       def sftp_send(key, remote_path, local_path)
-        sftp_block(key) do |sftp|
-          sftp.upload!(local_path, remote_path)
-        end
+        perform :upload!, key, local_path, remote_path
       end
 
       def sftp_fetch(key, remote_path, local_path)
-        sftp_block(key) do |sftp|
-          sftp.download!(remote_path, local_path)
-        end
+        perform :download!, key, remote_path, local_path
       end
 
       def sftp_move(key, original_remote_path, new_remote_path)
+        perform :rename!, key, original_remote_path, new_remote_path
+      end
+
+      def perform(action, key, *args)
         sftp_block(key) do |sftp|
-          sftp.rename!(original_remote_path, new_remote_path)
+          sftp.send(action, args)
         end
       end
 
