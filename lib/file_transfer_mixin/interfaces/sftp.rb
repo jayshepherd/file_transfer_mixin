@@ -18,7 +18,8 @@ module FileTransferMixin
 
       def sftp_block(key, &block)
         if perform_network_operations?
-          Net::SFTP.start(configuration[key][:server], configuration[key][:username], :password => configuration[key][:password]) do |sftp|
+          c = configuration[key]
+          Net::SFTP.start(c[:server], c[:username], :password => c[:password]) do |sftp|
             yield(sftp)
           end
         end
