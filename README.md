@@ -77,7 +77,7 @@ Then in a class, you would deal with it thusly:
       # Some method that otherwise uses Net::FTP commands but still uses our config block
       def ftp_detailed_method
         ftp_block(:some_key) do |ftp|
-          ftp.rename!('foo', 'bar')
+          puts "foo's last modification time: #{ftp.mtime('foo')}"
         end
       end
     end
