@@ -1,5 +1,6 @@
 require 'enviro'
 require 'net/sftp'
+require 'net/ftp'
 require 'forwardable'
 
 require 'file_transfer_mixin/interfaces'
