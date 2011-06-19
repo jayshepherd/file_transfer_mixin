@@ -27,11 +27,11 @@ module FileTransferMixin
       end
 
       def ftp_send(key, remote_path, local_path)
-        perform :put_binaryfile, key, local_path, remote_path
+        perform :putbinaryfile, key, local_path, remote_path
       end
 
       def ftp_fetch(key, remote_path, local_path)
-        perform :get_binaryfile, key, remote_path, local_path
+        perform :getbinaryfile, key, remote_path, local_path
       end
 
       def ftp_move(key, original_remote_path, new_remote_path)
@@ -40,7 +40,7 @@ module FileTransferMixin
 
       def perform(action, key, *args)
         ftp_block(key) do |ftp|
-          ftp.send(action, args)
+          ftp.send(action, *args)
         end
       end
 

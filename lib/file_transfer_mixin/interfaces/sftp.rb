@@ -39,7 +39,7 @@ module FileTransferMixin
 
       def perform(action, key, *args)
         sftp_block(key) do |sftp|
-          sftp.send(action, args)
+          sftp.send(action, *args)
         end
       end
 
