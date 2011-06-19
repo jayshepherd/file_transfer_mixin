@@ -19,8 +19,8 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'net-sftp', '~> 2.0.5'
-  s.add_dependency 'enviro', '~> 0.0.4'
-  s.add_development_dependency "bundler", ">= 1.0.0.rc.6"
+  s.add_dependency 'enviro', '~> 0.0.5'
+  s.add_development_dependency "bundler", ">= 1.0.0"
   s.add_development_dependency "rspec", "~> 2.4.0"
   s.add_development_dependency "ruby-debug19"
 end
