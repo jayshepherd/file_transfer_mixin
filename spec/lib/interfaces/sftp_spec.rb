@@ -10,6 +10,7 @@ describe ::FileTransferMixin::Interfaces::SFTP do
     subject.configuration[:some_key][:server].should == '127.0.0.1'
     subject.configuration[:some_key][:username].should == 'user'
     subject.configuration[:some_key][:password].should == 'pass'
+    subject.configuration[:some_key][:port].should == 1234
   end
 
   describe "network operations" do

@@ -23,6 +23,7 @@ RSpec.configure do |config|
             :server => '127.0.0.1',
             :username => 'user',
             :password => 'pass',
+            :port => 1234
           }
         },
         :ftp => {

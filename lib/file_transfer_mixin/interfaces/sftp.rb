@@ -19,7 +19,7 @@ module FileTransferMixin
       def sftp_block(key, &block)
         if perform_network_operations?
           c = configuration[key]
-          Net::SFTP.start(c[:server], c[:username], :password => c[:password]) do |sftp|
+          Net::SFTP.start(c[:server], c[:username], options) do |sftp|
             yield(sftp)
           end
         end
@@ -45,6 +45,13 @@ module FileTransferMixin
 
       def perform_network_operations?
         FileTransferMixin.env.to_s != 'test'
+      end
+
+      def options
+        options = {}
+        options.merge!(configuration[:password]) if configuration[:password]
+        options.merge!(configuration[:port]) if configuration[:port]
+        options
       end
     end
   end
